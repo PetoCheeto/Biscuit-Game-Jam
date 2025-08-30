@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -37,6 +35,11 @@ public class CoinFlip : MonoBehaviour
     public GameObject particle;
     public AudioSource audioSource;
     public AudioClip diceAudio;
+
+    [Header("List of Games")]
+    [SerializeField] private List<GameObject> coinGameObjects;
+    [SerializeField] private List<GameObject> diceGameObjects;
+    [SerializeField] private List<GameObject> rouletteGameObjects;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +47,7 @@ public class CoinFlip : MonoBehaviour
     }
     private void Update()
     {
-        if(coinFlipSelected)
+        if (coinFlipSelected)
         {
             coin.SetActive(true);
             dice.SetActive(false);
@@ -52,7 +55,7 @@ public class CoinFlip : MonoBehaviour
 
             buttonText.text = "Flip";
         }
-        if(diceRollSelected) 
+        if (diceRollSelected)
         {
             coin.SetActive(false);
             dice.SetActive(true);
@@ -62,16 +65,17 @@ public class CoinFlip : MonoBehaviour
 
         }
     }
-    public void SelectCoin() 
+
+    public void SelectCoin()
     {
-        coinFlipSelected = true; 
+        coinFlipSelected = true;
         diceRollSelected = false;
         diceGuesses.SetActive(false);
 
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(FlipCoin);
     }
-    public void SelectDice() 
+    public void SelectDice()
     {
         coinFlipSelected = false;
         diceRollSelected = true;
@@ -81,6 +85,31 @@ public class CoinFlip : MonoBehaviour
         actionButton.onClick.AddListener(RollDice);
         Debug.Log("select dice");
     }
+
+    public void TurnOnGame(int _gameIndex)
+    {
+        foreach(GameObject gamePiece in coinGameObjects) gamePiece.SetActive(false);
+
+        foreach (GameObject gamePiece in diceGameObjects) gamePiece.SetActive(false);
+
+        foreach (GameObject gamePiece in rouletteGameObjects) gamePiece.SetActive(false);
+
+        GameType _game = (GameType)_gameIndex;
+
+        switch (_game)
+        {
+            case GameType.CoinGame:
+                foreach (GameObject gamePiece in coinGameObjects) gamePiece.SetActive(true);
+                break;
+            case GameType.DiceGame:
+                foreach (GameObject gamePiece in diceGameObjects) gamePiece.SetActive(false);
+                break;
+            case GameType.RouletteGame:
+                foreach (GameObject gamePiece in rouletteGameObjects) gamePiece.SetActive(false);
+                break;
+        }
+    }
+
     // Update is called once per frame
     public void FlipCoin()
     {
@@ -92,7 +121,7 @@ public class CoinFlip : MonoBehaviour
             StartCoroutine(FlipCoroutine());
         }
     }
-    public void Guess1() 
+    public void Guess1()
     {
         guessedNumber = 1;
         one.enabled = true;
@@ -102,7 +131,7 @@ public class CoinFlip : MonoBehaviour
         five.enabled = false;
         six.enabled = false;
     }
-    public void Guess2() 
+    public void Guess2()
     {
         guessedNumber = 2;
         one.enabled = false;
@@ -112,7 +141,7 @@ public class CoinFlip : MonoBehaviour
         five.enabled = false;
         six.enabled = false;
     }
-    public void Guess3() 
+    public void Guess3()
     {
         guessedNumber = 3;
         one.enabled = false;
@@ -122,7 +151,7 @@ public class CoinFlip : MonoBehaviour
         five.enabled = false;
         six.enabled = false;
     }
-    public void Guess4() 
+    public void Guess4()
     {
         guessedNumber = 4;
         one.enabled = false;
@@ -152,10 +181,10 @@ public class CoinFlip : MonoBehaviour
         five.enabled = false;
         six.enabled = true;
     }
-    public void RollDice() 
+    public void RollDice()
     {
         Debug.Log("roll");
-        if(ItManager1.instance.its > 0) 
+        if (ItManager1.instance.its > 0)
         {
             Instantiate(particle, dice.transform.position, dice.transform.rotation);
             audioSource.pitch = Random.Range(0.5f, 2f);
@@ -163,7 +192,7 @@ public class CoinFlip : MonoBehaviour
             ItManager1.instance.its--;
             numberToRoll = Random.Range(1, 7);
             diceSR.sprite = diceSprites[numberToRoll - 1];
-            if(numberToRoll == guessedNumber) 
+            if (numberToRoll == guessedNumber)
             {
                 ItManager1.instance.its += 10;
             }
@@ -199,10 +228,17 @@ public class CoinFlip : MonoBehaviour
         // lock in final result
         coin.transform.rotation = Quaternion.identity;
         sr.sprite = finalSprite;
-        if(landOnHeads) 
+        if (landOnHeads)
         {
             ItManager1.instance.its += 2;
         }
         isFlipping = false;
     }
+}
+
+public enum GameType
+{
+    CoinGame,
+    DiceGame,
+    RouletteGame
 }
