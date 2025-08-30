@@ -47,23 +47,7 @@ public class CoinFlip : MonoBehaviour
     }
     private void Update()
     {
-        //if (coinFlipSelected)
-        //{
-        //    coin.SetActive(true);
-        //    dice.SetActive(false);
-        //    diceGuesses.SetActive(false);
-
-        //    buttonText.text = "Flip";
-        //}
-        //if (diceRollSelected)
-        //{
-        //    coin.SetActive(false);
-        //    dice.SetActive(true);
-        //    diceGuesses.SetActive(true);
-
-        //    buttonText.text = "Roll";
-
-        //}
+        
     }
 
     public void SelectCoin()
@@ -88,21 +72,20 @@ public class CoinFlip : MonoBehaviour
 
     public void TurnOnGame(int _gameIndex)
     {
-        foreach(GameObject _coinPiece in coinGameObjects)
+        actionButton.onClick.RemoveAllListeners();
+
+        foreach (GameObject _coinPiece in coinGameObjects)
         {
-            Debug.Log(_coinPiece.name + " is turned off.");
             _coinPiece.SetActive(false);
         }
 
         foreach (GameObject _dicePiece in diceGameObjects)
         {
-            Debug.Log(_dicePiece.name + " is turned off.");
             _dicePiece.SetActive(false);
         }
 
         foreach (GameObject _wheelPiece in rouletteGameObjects)
         {
-            Debug.Log(_wheelPiece.name + " is turned off.");
             _wheelPiece.SetActive(false);
         }
 
@@ -114,23 +97,20 @@ public class CoinFlip : MonoBehaviour
                 foreach (GameObject _coinPiece in coinGameObjects)
                 {
                     _coinPiece.SetActive(true);
-                    Debug.Log(_coinPiece.name + " is turned on.");
                 }
-                Debug.Log("Coin Game is playing");
+                actionButton.onClick.AddListener(FlipCoin);
                 break;
             case GameType.DiceGame:
                 foreach (GameObject _dicePiece in diceGameObjects)
                 {
                     _dicePiece.SetActive(true);
-                    Debug.Log(_dicePiece.name + " is turned on.");
                 }
-                Debug.Log("Dice game is playing");
+                actionButton.onClick.AddListener(RollDice);
                 break;
             case GameType.RouletteGame:
                 foreach (GameObject _wheelPiece in rouletteGameObjects)
                 {
                     _wheelPiece.SetActive(true);
-                    Debug.Log(_wheelPiece.name + " is turned on.");
                 }
                 break;
         }

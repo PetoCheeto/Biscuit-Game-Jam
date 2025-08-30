@@ -34,7 +34,7 @@ public class R_Wheel : MonoBehaviour
     private void Start()
     {
         WarningOfMissingComponents();
-        DisplayBettingText();
+        //DisplayBettingText();
     }
 
     public void SpinTheWheel()
@@ -84,7 +84,7 @@ public class R_Wheel : MonoBehaviour
         else if (_colorToBet == 1) bettingColor = WheelBettingColor.Blue;
         else if (_colorToBet == 2) bettingColor = WheelBettingColor.Green;
 
-        DisplayBettingText();
+        //DisplayBettingText();
     }
 
     public void SquareLandedOn(R_WheelSquare _newSquare)
@@ -92,21 +92,21 @@ public class R_Wheel : MonoBehaviour
         currentSquare = _newSquare;
     }
 
-    private void DisplayBettingText()
-    {
-        switch(bettingColor)
-        {
-            case WheelBettingColor.Red:
-                bettingTMP.text = "Betting On: Red";
-                break;
-            case WheelBettingColor.Blue:
-                bettingTMP.text = "Betting On: Blue";
-                break;
-            case WheelBettingColor.Green:
-                bettingTMP.text = "Betting On: Green";
-                break;
-        }
-    }
+    //private void DisplayBettingText()
+    //{
+    //    switch(bettingColor)
+    //    {
+    //        case WheelBettingColor.Red:
+    //            bettingTMP.text = "Betting On: Red";
+    //            break;
+    //        case WheelBettingColor.Blue:
+    //            bettingTMP.text = "Betting On: Blue";
+    //            break;
+    //        case WheelBettingColor.Green:
+    //            bettingTMP.text = "Betting On: Green";
+    //            break;
+    //    }
+    //}
 
     private void DisplayResultText()
     {
