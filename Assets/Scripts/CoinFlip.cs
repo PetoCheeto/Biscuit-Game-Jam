@@ -88,24 +88,26 @@ public class CoinFlip : MonoBehaviour
 
     public void TurnOnGame(int _gameIndex)
     {
-        foreach(GameObject gamePiece in coinGameObjects) gamePiece.SetActive(false);
+        foreach(GameObject _coinPiece in coinGameObjects) _coinPiece.SetActive(false);
 
-        foreach (GameObject gamePiece in diceGameObjects) gamePiece.SetActive(false);
+        foreach (GameObject _dicePiece in diceGameObjects) _dicePiece.SetActive(false);
 
-        foreach (GameObject gamePiece in rouletteGameObjects) gamePiece.SetActive(false);
+        foreach (GameObject _wheelPiece in rouletteGameObjects) _wheelPiece.SetActive(false);
 
         GameType _game = (GameType)_gameIndex;
 
         switch (_game)
         {
             case GameType.CoinGame:
-                foreach (GameObject gamePiece in coinGameObjects) gamePiece.SetActive(true);
+                foreach (GameObject _coinPiece in coinGameObjects) _coinPiece.SetActive(true);
+                Debug.Log("Coin Game is playing");
                 break;
             case GameType.DiceGame:
-                foreach (GameObject gamePiece in diceGameObjects) gamePiece.SetActive(false);
+                foreach (GameObject _dicePiece in diceGameObjects) _dicePiece.SetActive(true);
+                Debug.Log("Dice game is playing");
                 break;
             case GameType.RouletteGame:
-                foreach (GameObject gamePiece in rouletteGameObjects) gamePiece.SetActive(false);
+                foreach (GameObject _wheelPiece in rouletteGameObjects) _wheelPiece.SetActive(true);
                 break;
         }
     }
