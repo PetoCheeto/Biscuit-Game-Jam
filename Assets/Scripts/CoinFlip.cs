@@ -47,23 +47,23 @@ public class CoinFlip : MonoBehaviour
     }
     private void Update()
     {
-        if (coinFlipSelected)
-        {
-            coin.SetActive(true);
-            dice.SetActive(false);
-            diceGuesses.SetActive(false);
+        //if (coinFlipSelected)
+        //{
+        //    coin.SetActive(true);
+        //    dice.SetActive(false);
+        //    diceGuesses.SetActive(false);
 
-            buttonText.text = "Flip";
-        }
-        if (diceRollSelected)
-        {
-            coin.SetActive(false);
-            dice.SetActive(true);
-            diceGuesses.SetActive(true);
+        //    buttonText.text = "Flip";
+        //}
+        //if (diceRollSelected)
+        //{
+        //    coin.SetActive(false);
+        //    dice.SetActive(true);
+        //    diceGuesses.SetActive(true);
 
-            buttonText.text = "Roll";
+        //    buttonText.text = "Roll";
 
-        }
+        //}
     }
 
     public void SelectCoin()
@@ -88,26 +88,50 @@ public class CoinFlip : MonoBehaviour
 
     public void TurnOnGame(int _gameIndex)
     {
-        foreach(GameObject _coinPiece in coinGameObjects) _coinPiece.SetActive(false);
+        foreach(GameObject _coinPiece in coinGameObjects)
+        {
+            Debug.Log(_coinPiece.name + " is turned off.");
+            _coinPiece.SetActive(false);
+        }
 
-        foreach (GameObject _dicePiece in diceGameObjects) _dicePiece.SetActive(false);
+        foreach (GameObject _dicePiece in diceGameObjects)
+        {
+            Debug.Log(_dicePiece.name + " is turned off.");
+            _dicePiece.SetActive(false);
+        }
 
-        foreach (GameObject _wheelPiece in rouletteGameObjects) _wheelPiece.SetActive(false);
+        foreach (GameObject _wheelPiece in rouletteGameObjects)
+        {
+            Debug.Log(_wheelPiece.name + " is turned off.");
+            _wheelPiece.SetActive(false);
+        }
 
         GameType _game = (GameType)_gameIndex;
 
         switch (_game)
         {
             case GameType.CoinGame:
-                foreach (GameObject _coinPiece in coinGameObjects) _coinPiece.SetActive(true);
+                foreach (GameObject _coinPiece in coinGameObjects)
+                {
+                    _coinPiece.SetActive(true);
+                    Debug.Log(_coinPiece.name + " is turned on.");
+                }
                 Debug.Log("Coin Game is playing");
                 break;
             case GameType.DiceGame:
-                foreach (GameObject _dicePiece in diceGameObjects) _dicePiece.SetActive(true);
+                foreach (GameObject _dicePiece in diceGameObjects)
+                {
+                    _dicePiece.SetActive(true);
+                    Debug.Log(_dicePiece.name + " is turned on.");
+                }
                 Debug.Log("Dice game is playing");
                 break;
             case GameType.RouletteGame:
-                foreach (GameObject _wheelPiece in rouletteGameObjects) _wheelPiece.SetActive(true);
+                foreach (GameObject _wheelPiece in rouletteGameObjects)
+                {
+                    _wheelPiece.SetActive(true);
+                    Debug.Log(_wheelPiece.name + " is turned on.");
+                }
                 break;
         }
     }
